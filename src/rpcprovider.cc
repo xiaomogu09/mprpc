@@ -66,8 +66,8 @@ void RpcProvider::Run()
     }
 
     // rpc服务端准备启动，打印信息
-    std::cout << "RpcProvider start service at ip:" << ip << " port:" << port << std::endl;
-
+    LOG_INFO("RpcProvider start service at ip:%s port:%d",
+             ip.c_str(), port);
     // 启动网络服务
     server.start();
     m_eventLoop.loop();
@@ -109,7 +109,7 @@ void RpcProvider::OnMessage(const muduo::net::TcpConnectionPtr &conn,
     else
     {
         // 数据头反序列化失败
-        std::cout << "rpc_header_str:" << rpc_header_str << " parse error!" << std::endl;
+        LOG_INFO("rpc_header_str:%s parse error!", rpc_header_str.c_str());
         return;
     }
 
@@ -120,14 +120,14 @@ void RpcProvider::OnMessage(const muduo::net::TcpConnectionPtr &conn,
     auto it = m_serviceMap.find(service_name);
     if (it == m_serviceMap.end())
     {
-        std::cout << service_name << " is not exist!" << std::endl;
+        LOG_INFO("%s is not exist!", service_name.c_str());
         return;
     }
 
     auto mit = it->second.m_methodMap.find(method_name);
     if (mit == it->second.m_methodMap.end())
     {
-        std::cout << service_name << ":" << method_name << " is not exist!" << std::endl;
+        LOG_INFO("%s : %s is not exist!", service_name.c_str(), method_name.c_str());
         return;
     }
 
@@ -138,7 +138,7 @@ void RpcProvider::OnMessage(const muduo::net::TcpConnectionPtr &conn,
     google::protobuf::Message *request = service->GetRequestPrototype(method).New();
     if (!request->ParseFromString(args_str))
     {
-        std::cout << "request parse error, content:" << args_str << std::endl;
+        LOG_INFO("request parse error, content:%s", args_str.c_str());
         return;
     }
     google::protobuf::Message *response = service->GetResponsePrototype(method).New();
@@ -165,7 +165,7 @@ void RpcProvider::SendRpcResponse(const muduo::net::TcpConnectionPtr &conn, goog
     }
     else
     {
-        std::cout << "serialize response_str error!" << std::endl;
+        LOG_INFO("serialize response_str error!");
     }
     conn->shutdown();
 }

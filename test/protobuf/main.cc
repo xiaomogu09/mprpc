@@ -26,7 +26,7 @@ int main()
 
 int main1()
 {
-    // 封装了login请求对象的数据
+    // 封装login请求对象的数据
     LoginRequest req;
     req.set_name("zhang san");
     req.set_pwd("123456");
@@ -37,7 +37,7 @@ int main1()
         std::cout << send_str.c_str() << std::endl;
     }
 
-    // 从send_str反序列化一个login请求对象
+    // 从send_str反序列化login请求对象
     LoginRequest reqB;
     if (reqB.ParseFromString(send_str))
     {

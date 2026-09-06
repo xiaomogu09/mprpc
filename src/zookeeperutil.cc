@@ -2,11 +2,12 @@
 #include "mprpcapplication.h"
 #include <semaphore.h>
 #include <iostream>
+#include <logger.h>
 
 void global_watcher(zhandle_t *zh, int type,
 					int state, const char *path, void *watcherCtx)
 {
-	if (type == ZOO_SESSION_EVENT) // 回调的消息类型是和会话相关的消息类型
+	if (type == ZOO_SESSION_EVENT)
 	{
 		if (state == ZOO_CONNECTED_STATE) // zkclient和zkserver连接成功
 		{
@@ -38,7 +39,7 @@ void ZkClient::Start()
 	m_zhandle = zookeeper_init(connstr.c_str(), global_watcher, 30000, nullptr, nullptr, 0);
 	if (nullptr == m_zhandle)
 	{
-		std::cout << "zookeeper_init error!" << std::endl;
+		LOG_INFO("zookeeper_init error!");
 		exit(EXIT_FAILURE);
 	}
 
@@ -47,7 +48,7 @@ void ZkClient::Start()
 	zoo_set_context(m_zhandle, &sem);
 
 	sem_wait(&sem);
-	std::cout << "zookeeper_init success!" << std::endl;
+	LOG_INFO("zookeeper_init success!");
 }
 
 void ZkClient::Create(const char *path, const char *data, int datalen, int state)
@@ -63,12 +64,11 @@ void ZkClient::Create(const char *path, const char *data, int datalen, int state
 						  &ZOO_OPEN_ACL_UNSAFE, state, path_buffer, bufferlen);
 		if (flag == ZOK)
 		{
-			std::cout << "znode create success... path:" << path << std::endl;
+			LOG_INFO("znode create success... path: %s", path);
 		}
 		else
 		{
-			std::cout << "flag:" << flag << std::endl;
-			std::cout << "znode create error... path:" << path << std::endl;
+			LOG_INFO("znode create error... path:%s", path);
 			exit(EXIT_FAILURE);
 		}
 	}
@@ -82,7 +82,7 @@ std::string ZkClient::GetData(const char *path)
 	int flag = zoo_get(m_zhandle, path, 0, buffer, &bufferlen, nullptr);
 	if (flag != ZOK)
 	{
-		std::cout << "get znode error... path:" << path << std::endl;
+		LOG_INFO("get znode error... path:%s", path);
 		return "";
 	}
 	else

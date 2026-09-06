@@ -1,5 +1,5 @@
 #include "mprpcconfig.h"
-
+#include <logger.h>
 #include <iostream>
 #include <string>
 
@@ -9,7 +9,7 @@ void MprpcConfig::LoadConfigFile(const char *config_file)
     FILE *pf = fopen(config_file, "r");
     if (nullptr == pf)
     {
-        std::cout << config_file << " is note exist!" << std::endl;
+        LOG_INFO("%s is note exist!", config_file);
         exit(EXIT_FAILURE);
     }
     while (!feof(pf))

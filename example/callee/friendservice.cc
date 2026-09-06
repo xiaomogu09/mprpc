@@ -11,7 +11,7 @@ class FriendService : public fixbug::FiendServiceRpc
 public:
     std::vector<std::string> GetFriendsList(uint32_t userid)
     {
-        std::cout << "do GetFriendsList service! userid:" << userid << std::endl;
+        LOG_INFO("do GetFriendsList service! userid:%s", userid);
         std::vector<std::string> vec;
         vec.push_back("gao yang");
         vec.push_back("liu hong");
@@ -40,8 +40,6 @@ public:
 
 int main(int argc, char **argv)
 {
-    LOG_ERR("ddddd");
-    LOG_INFO("ddddd");
 
     // 调用框架的初始化操作
     MprpcApplication::Init(argc, argv);

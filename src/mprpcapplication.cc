@@ -2,12 +2,13 @@
 #include <iostream>
 #include <unistd.h>
 #include <string>
+#include <logger.h>
 
 MprpcConfig MprpcApplication::m_config;
 
 void ShowArgsHelp()
 {
-    std::cout << "format: command -i <configfile>" << std::endl;
+    LOG_INFO("format: command -i <configfile>");
 }
 
 void MprpcApplication::Init(int argc, char **argv)

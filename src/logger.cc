@@ -16,7 +16,7 @@ Logger::Logger()
                              {
         for (;;)
         {
-            // 获取当前的日期，然后取日志信息，写入相应的日志文件当中
+            // 获取当前的日期和日志信息，写入相应的日志文件当中
             time_t now = time(nullptr);
             tm *nowtm = localtime(&now);
 

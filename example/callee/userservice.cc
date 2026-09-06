@@ -10,14 +10,12 @@ public:
     bool Login(std::string name, std::string pwd)
     {
         std::cout << "doing local service: Login" << std::endl;
-        std::cout << "name:" << name << " pwd:" << pwd << std::endl;
         return false;
     }
 
     bool Register(uint32_t id, std::string name, std::string pwd)
     {
         std::cout << "doing local service: Register" << std::endl;
-        std::cout << "id:" << id << "name:" << name << " pwd:" << pwd << std::endl;
         return true;
     }
 
