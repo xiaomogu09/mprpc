@@ -7,7 +7,6 @@
 class MprpcChannel : public google::protobuf::RpcChannel
 {
 public:
-    // 所有通过stub代理对象调用的rpc方法，都走到这里了，统一做rpc方法调用的数据数据序列化和网络发送（提供给rpc调用者使用，所有调用者都是通过rpcchannel调用callmethod来调用方法）
     void CallMethod(const google::protobuf::MethodDescriptor *method,
                     google::protobuf::RpcController *controller,
                     const google::protobuf::Message *request,

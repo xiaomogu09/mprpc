@@ -5,11 +5,6 @@ using namespace fixbug;
 
 int main()
 {
-    // LoginResponse rsp;
-    // ResultCode *rc = rsp.mutable_result();
-    // rc->set_errcode(1);
-    // rc->set_errmsg("登录处理失败了");
-    
     GetFriendListsResponse rsp;
     ResultCode *rc = rsp.mutable_result();
     rc->set_errcode(0);
@@ -36,7 +31,6 @@ int main1()
     req.set_name("zhang san");
     req.set_pwd("123456");
 
-    // 对象数据序列化 =》 char*
     std::string send_str;
     if (req.SerializeToString(&send_str))
     {

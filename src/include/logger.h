@@ -2,7 +2,6 @@
 #include "lockqueue.h"
 #include <string>
 
-// 定义宏 LOG_INFO("xxx %d %s", 20, "xxxx")
 #define LOG_INFO(logmsgformat, ...)                     \
     do                                                  \
     {                                                   \

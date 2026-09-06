@@ -3,7 +3,7 @@
 #include <iostream>
 #include <string>
 
-// 负责解析加载配置文件
+// 解析加载配置文件
 void MprpcConfig::LoadConfigFile(const char *config_file)
 {
     FILE *pf = fopen(config_file, "r");
@@ -12,8 +12,6 @@ void MprpcConfig::LoadConfigFile(const char *config_file)
         std::cout << config_file << " is note exist!" << std::endl;
         exit(EXIT_FAILURE);
     }
-
-    // 1.注释   2.正确的配置项 =    3.去掉开头的多余的空格
     while (!feof(pf))
     {
         char buf[512] = {0};
@@ -74,7 +72,6 @@ void MprpcConfig::Trim(std::string &src_buf)
     idx = src_buf.find_last_not_of(' ');
     if (idx != -1)
     {
-        // 说明字符串后面有空格
         src_buf = src_buf.substr(0, idx + 1);
     }
 }

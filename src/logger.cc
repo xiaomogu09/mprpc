@@ -11,7 +11,7 @@ Logger &Logger::GetInstance()
 // 构造函数进行日志的初始化
 Logger::Logger()
 {
-    // 启动专门的写日志线程
+    // 启动写日志线程
     std::thread writeLogTask([&]()
                              {
         for (;;)
